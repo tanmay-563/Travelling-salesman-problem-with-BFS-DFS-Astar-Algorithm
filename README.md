@@ -13,13 +13,13 @@ It is designed to help students, developers, and AI enthusiasts **intuitively un
 🌐 **Live Website**
 
 ```
-PASTE YOUR HOSTED WEBSITE LINK HERE
+https://tanmay-563.github.io/Travelling-salesman-problem-with-BFS-DFS-Astar-Algorithm
 ```
 
 📦 **GitHub Repository**
 
 ```
-PASTE YOUR REPOSITORY LINK HERE
+https://github.com/tanmay-563/Travelling-salesman-problem-with-BFS-DFS-Astar-Algorithm
 ```
 
 ---
@@ -186,7 +186,7 @@ You can run the project **in less than 1 minute**.
 ### Option A — Clone the repository
 
 ```bash
-git clone REPOSITORY_LINK_HERE
+git clone https://github.com/tanmay-563/Travelling-salesman-problem-with-BFS-DFS-Astar-Algorithm
 ```
 
 ### Option B — Download ZIP
@@ -390,7 +390,7 @@ This project is open-source and available under the **MIT License**.
 Created by
 
 ```
-YOUR NAME HERE
+TANMAY KUMAR SINGH
 ```
 
 ---
