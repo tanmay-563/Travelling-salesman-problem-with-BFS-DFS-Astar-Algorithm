@@ -12,15 +12,11 @@ It is designed to help students, developers, and AI enthusiasts **intuitively un
 
 🌐 **Live Website**
 
-```
-https://tanmay-563.github.io/Travelling-salesman-problem-with-BFS-DFS-Astar-Algorithm
-```
+👉 https://tanmay-563.github.io/Travelling-salesman-problem-with-BFS-DFS-Astar-Algorithm/
 
 📦 **GitHub Repository**
 
-```
-https://github.com/tanmay-563/Travelling-salesman-problem-with-BFS-DFS-Astar-Algorithm
-```
+👉 https://github.com/tanmay-563/Travelling-salesman-problem-with-BFS-DFS-Astar-Algorithm
 
 ---
 
@@ -30,19 +26,22 @@ Watch the algorithms explore the graph step-by-step.
 
 <video src="video.mp4" controls width="100%"></video>
 
+*(Make sure the file `video.mp4` is placed in the root of the repository.)*
 
 ---
 
 # ✨ Features
 
-### 🎯 Interactive Graph Builder
+## 🎯 Interactive Graph Builder
 
 * Create graphs with **2–10 nodes**
 * Add **custom weighted edges**
 * Visual preview of the graph
 * Remove or clear edges easily
 
-### 🧠 Multiple Search Algorithms
+---
+
+## 🧠 Multiple Search Algorithms
 
 The visualizer supports:
 
@@ -54,57 +53,57 @@ Each algorithm shows how nodes are explored in real time.
 
 ---
 
-### 🎬 Step-By-Step Animation
+## 🎬 Step-By-Step Animation
 
 Watch the algorithm process unfold:
 
-* current node highlight
-* visited nodes
-* frontier nodes
-* explored edges
-* final path discovery
+* Current node highlight
+* Visited nodes
+* Frontier nodes
+* Explored edges
+* Final path discovery
 
 ---
 
-### ⚡ Animation Controls
+## ⚡ Animation Controls
 
-You can control the simulation:
+You can control the simulation with:
 
-* Pause / Resume
-* Step forward manually
-* Restart simulation
-* Adjust animation speed
+* **Pause / Resume**
+* **Step Forward**
+* **Restart Simulation**
+* **Adjust Animation Speed**
 
 ---
 
-### 📊 Real-Time Algorithm Information
+## 📊 Real-Time Algorithm Information
 
 The simulator displays:
 
-* nodes explored
-* current node
-* frontier set
-* algorithm status
-* optimal path
-* total path cost
+* Nodes explored
+* Current node
+* Frontier nodes
+* Algorithm status
+* Optimal path
+* Total path cost
 
 ---
 
-### 🧾 Pseudocode Display
+## 🧾 Pseudocode Display
 
 Each algorithm includes its **pseudocode**, allowing users to connect the **visual animation with the algorithm logic**.
 
 ---
 
-### 🎨 Modern UI
+## 🎨 Modern UI
 
-Features a visually engaging interface with:
+The project includes a visually engaging interface with:
 
-* glowing nodes
-* animated edges
-* particle background
-* smooth transitions
-* cyber-style theme
+* Glowing nodes
+* Animated edges
+* Particle background
+* Smooth transitions
+* Cyber-style theme
 
 ---
 
@@ -116,18 +115,16 @@ BFS explores the graph **level by level** using a **queue**.
 
 It guarantees the **shortest path in an unweighted graph**.
 
-**Steps**
+### Steps
 
 1. Start from the initial node
 2. Add it to the queue
 3. Visit all its neighbors
 4. Continue level by level
 
-Time Complexity
+### Time Complexity
 
-```
 O(V + E)
-```
 
 ---
 
@@ -137,18 +134,16 @@ DFS explores **as deep as possible before backtracking**.
 
 It uses a **stack** (or recursion).
 
-**Steps**
+### Steps
 
 1. Start from the initial node
 2. Go to the first unvisited neighbor
 3. Continue deeper
 4. Backtrack when no neighbors remain
 
-Time Complexity
+### Time Complexity
 
-```
 O(V + E)
-```
 
 ---
 
@@ -156,11 +151,9 @@ O(V + E)
 
 A* is a **heuristic pathfinding algorithm** that chooses the most promising node using:
 
-```
 f(n) = g(n) + h(n)
-```
 
-Where
+Where:
 
 * **g(n)** = cost from start to node
 * **h(n)** = heuristic estimate to goal
@@ -168,10 +161,10 @@ Where
 
 A* is widely used in:
 
-* robotics
-* navigation
-* game AI
-* route planning
+* Robotics
+* Navigation
+* Game AI
+* Route planning
 
 ---
 
@@ -181,34 +174,23 @@ You can run the project **in less than 1 minute**.
 
 ---
 
-## Step 1 — Download the Project
+## Step 1 — Clone the Repository
 
-### Option A — Clone the repository
-
-```bash
-git clone https://github.com/tanmay-563/Travelling-salesman-problem-with-BFS-DFS-Astar-Algorithm
-```
-
-### Option B — Download ZIP
-
-1. Click **Code**
-2. Click **Download ZIP**
-3. Extract the folder
+git clone https://github.com/tanmay-563/Travelling-salesman-problem-with-BFS-DFS-Astar-Algorithm.git
 
 ---
 
-## Step 2 — Open the Project
+## Step 2 — Open the Project Folder
 
-Navigate to the project folder.
+Navigate to the project directory.
 
 You will see files like:
 
-```
 index.html
 script.js
 style.css
 video.mp4
-```
+README.md
 
 ---
 
@@ -216,17 +198,14 @@ video.mp4
 
 Simply open:
 
-```
 index.html
-```
 
 in your browser.
 
 No installation required.
-
 No server required.
 
-Works directly in:
+Works in:
 
 * Chrome
 * Edge
@@ -239,13 +218,9 @@ Works directly in:
 
 ### 1️⃣ Generate Nodes
 
-Choose how many nodes you want (2–10).
+Choose how many nodes you want (**2–10**).
 
-Click:
-
-```
-Generate Nodes
-```
+Click **Generate Nodes**.
 
 ---
 
@@ -253,17 +228,11 @@ Generate Nodes
 
 Select:
 
-```
-From node
-To node
-Weight
-```
+* From Node
+* To Node
+* Weight
 
-Then click:
-
-```
-Add Edge
-```
+Then click **Add Edge**.
 
 ---
 
@@ -271,11 +240,9 @@ Add Edge
 
 Choose one:
 
-```
-BFS
-DFS
-A*
-```
+* BFS
+* DFS
+* A*
 
 ---
 
@@ -287,40 +254,33 @@ Pick the node where the algorithm should begin.
 
 ### 5️⃣ Run Simulation
 
-Click:
-
-```
-RUN SIMULATION
-```
+Click **Run Simulation**.
 
 The algorithm will now explore the graph visually.
 
 ---
 
-### 6️⃣ Control Animation
+### 6️⃣ Control the Animation
 
 You can:
 
 * Pause
 * Resume
 * Step through manually
-* Restart the simulation
+* Restart simulation
 * Adjust animation speed
 
 ---
 
 # 📁 Project Structure
 
-```
-AI-Search-Visualizer
-│
+Travelling-salesman-problem-with-BFS-DFS-Astar-Algorithm
+
 ├── index.html
 ├── style.css
 ├── script.js
 ├── video.mp4
-│
 └── README.md
-```
 
 ---
 
@@ -339,23 +299,23 @@ No external libraries required.
 
 This project helps users understand:
 
-* graph traversal
+* Graph traversal
 * AI search strategies
-* algorithm exploration patterns
-* heuristic search concepts
+* Algorithm exploration patterns
+* Heuristic search concepts
 
 It is particularly useful for:
 
-* computer science students
+* Computer science students
 * AI learners
-* interview preparation
-* algorithm visualization
+* Interview preparation
+* Algorithm visualization
 
 ---
 
 # 🌟 Future Improvements
 
-Potential upgrades:
+Possible upgrades:
 
 * Dijkstra's Algorithm
 * Greedy Best First Search
@@ -371,7 +331,7 @@ Potential upgrades:
 
 Contributions are welcome.
 
-If you would like to improve this project:
+If you'd like to contribute:
 
 1. Fork the repository
 2. Create a new branch
@@ -387,11 +347,10 @@ This project is open-source and available under the **MIT License**.
 
 # 👨‍💻 Author
 
-Created by
+Created by **Tanmay**
 
-```
-TANMAY KUMAR SINGH
-```
+GitHub:
+https://github.com/tanmay-563
 
 ---
 
