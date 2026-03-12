@@ -18,17 +18,6 @@ It is designed to help students, developers, and AI enthusiasts **intuitively un
 
 👉 https://github.com/tanmay-563/Travelling-salesman-problem-with-BFS-DFS-Astar-Algorithm
 
----
-
-# 🎥 Algorithm Visualization Demo
-
-Watch the algorithms explore the graph step-by-step.
-
-<video src="video.mp4" controls width="100%"></video>
-
-*(Make sure the file `video.mp4` is placed in the root of the repository.)*
-
----
 
 # ✨ Features
 
