@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Search Algorithm Visualizer — TSP</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════
+       BACKGROUND EFFECTS
+  ═══════════════════════════════════════════════════ -->
+  <div class="bg-grid"></div>
+  <div class="bg-scanline"></div>
+  <canvas id="bg-particles" class="bg-particles"></canvas>
+
+  <!-- ═══════════════════════════════════════════════════
+       PAGE 1 — INPUT & ALGORITHM SELECTION
+  ═══════════════════════════════════════════════════ -->
+  <div id="page-input" class="page active">
+
+    <!-- Header -->
+    <header class="site-header">
+      <div class="header-badge">AI · GRAPH · SEARCH</div>
+      <h1 class="site-title">
+        <span class="title-ai">AI</span> Search Algorithm Visualizer
+        <span class="title-sub">Traveling Salesman Problem</span>
+      </h1>
+      <div class="header-status">
+        <span class="status-dot"></span> SYSTEM READY
+      </div>
+    </header>
+
+    <main class="input-layout">
+
+      <!-- ── LEFT PANEL: Graph Builder ── -->
+      <section class="panel glass panel-builder">
+        <div class="panel-header">
+          <span class="panel-icon">◈</span>
+          <h2>GRAPH CONSTRUCTOR</h2>
+          <span class="panel-tag">STEP 01</span>
+        </div>
+
+        <!-- Node count -->
+        <div class="form-group">
+          <label class="form-label">NUMBER OF CITIES (NODES)</label>
+          <div class="input-row">
+            <input type="number" id="node-count" class="neon-input" min="2" max="10" value="5" placeholder="e.g. 5" />
+            <button class="btn btn-secondary" id="generate-nodes-btn">GENERATE</button>
+          </div>
+          <p class="form-hint">Cities will be labeled A, B, C … (max 10)</p>
+        </div>
+
+        <!-- Node list display -->
+        <div class="form-group">
+          <label class="form-label">ACTIVE NODES</label>
+          <div id="node-chips" class="chip-row"></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Edge builder -->
+        <div class="form-group">
+          <label class="form-label">ADD EDGE (ROAD)</label>
+          <div class="edge-builder">
+            <select id="edge-from" class="neon-select"></select>
+            <span class="edge-arrow">→</span>
+            <select id="edge-to" class="neon-select"></select>
+            <span class="edge-colon">:</span>
+            <input type="number" id="edge-weight" class="neon-input weight-input" min="1" max="999" placeholder="dist" value="5" />
+            <button class="btn btn-accent" id="add-edge-btn">ADD</button>
+          </div>
+          <div class="checkbox-row">
+            <input type="checkbox" id="undirected" checked />
+            <label for="undirected" class="form-label-inline">Bidirectional edge</label>
+          </div>
+        </div>
+
+        <!-- Edge list -->
+        <div class="form-group">
+          <label class="form-label">EDGE LIST <span id="edge-count-label" class="badge">0</span></label>
+          <div id="edge-list" class="edge-list"></div>
+        </div>
+
+        <button class="btn btn-danger btn-small" id="clear-edges-btn">CLEAR ALL EDGES</button>
+
+        <!-- Presets -->
+        <div class="form-group" style="margin-top:16px">
+          <label class="form-label">QUICK PRESETS</label>
+          <div class="preset-row">
+            <button class="btn btn-preset" data-preset="small">◆ SMALL (4)</button>
+            <button class="btn btn-preset" data-preset="medium">◆ MEDIUM (6)</button>
+            <button class="btn btn-preset" data-preset="large">◆ LARGE (8)</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── MIDDLE PANEL: Live Preview Canvas ── -->
+      <section class="panel glass panel-preview">
+        <div class="panel-header">
+          <span class="panel-icon">◉</span>
+          <h2>GRAPH PREVIEW</h2>
+          <span class="panel-tag">LIVE</span>
+        </div>
+        <div class="canvas-wrapper">
+          <canvas id="preview-canvas" width="440" height="380"></canvas>
+          <div id="canvas-empty-msg" class="canvas-empty">
+            <div class="empty-icon">⬡</div>
+            <p>Add nodes & edges to visualize graph</p>
+          </div>
+        </div>
+        <!-- Start node selector -->
+        <div class="form-group" style="margin-top:12px">
+          <label class="form-label">START NODE</label>
+          <select id="start-node" class="neon-select full-width"></select>
+        </div>
+      </section>
+
+      <!-- ── RIGHT PANEL: Algorithm + Run ── -->
+      <section class="panel glass panel-algo">
+        <div class="panel-header">
+          <span class="panel-icon">◈</span>
+          <h2>ALGORITHM SELECT</h2>
+          <span class="panel-tag">STEP 02</span>
+        </div>
+
+        <!-- Algorithm cards -->
+        <div class="algo-cards">
+          <div class="algo-card" data-algo="bfs">
+            <div class="algo-card-icon">BFS</div>
+            <div class="algo-card-body">
+              <h3>Breadth-First Search</h3>
+              <p>Explores all neighbors level-by-level. Guarantees shortest path in unweighted graphs.</p>
+              <div class="algo-tags">
+                <span class="tag tag-cyan">OPTIMAL (unweighted)</span>
+                <span class="tag tag-blue">COMPLETE</span>
+              </div>
+            </div>
+            <div class="algo-card-select">◉</div>
+          </div>
+
+          <div class="algo-card" data-algo="dfs">
+            <div class="algo-card-icon">DFS</div>
+            <div class="algo-card-body">
+              <h3>Depth-First Search</h3>
+              <p>Dives deep along each branch before backtracking. Memory-efficient exploration.</p>
+              <div class="algo-tags">
+                <span class="tag tag-purple">NOT OPTIMAL</span>
+                <span class="tag tag-blue">COMPLETE</span>
+              </div>
+            </div>
+            <div class="algo-card-select">◉</div>
+          </div>
+
+          <div class="algo-card" data-algo="astar">
+            <div class="algo-card-icon">A*</div>
+            <div class="algo-card-body">
+              <h3>A* Algorithm</h3>
+              <p>Uses heuristic f(n) = g(n) + h(n) to find the optimal path efficiently.</p>
+              <div class="algo-tags">
+                <span class="tag tag-cyan">OPTIMAL</span>
+                <span class="tag tag-green">HEURISTIC</span>
+              </div>
+            </div>
+            <div class="algo-card-select">◉</div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Pseudocode preview -->
+        <div class="form-group">
+          <label class="form-label">PSEUDOCODE PREVIEW</label>
+          <div id="pseudocode-panel" class="pseudocode-panel">
+            <pre id="pseudocode-text">Select an algorithm above to see its pseudocode.</pre>
+          </div>
+        </div>
+
+        <!-- Speed control -->
+        <div class="form-group">
+          <label class="form-label">ANIMATION SPEED
+            <span id="speed-label" class="badge">NORMAL</span>
+          </label>
+          <div class="slider-row">
+            <span class="slider-label">SLOW</span>
+            <input type="range" id="speed-slider" class="neon-slider" min="1" max="5" value="3" />
+            <span class="slider-label">FAST</span>
+          </div>
+        </div>
+
+        <!-- Run button -->
+        <button class="btn btn-run" id="run-btn">
+          <span class="run-icon">▶</span>
+          RUN SIMULATION
+        </button>
+        <div id="run-error" class="error-msg"></div>
+      </section>
+
+    </main>
+  </div><!-- /page-input -->
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PAGE 2 — VISUAL SIMULATION
+  ═══════════════════════════════════════════════════ -->
+  <div id="page-sim" class="page">
+
+    <!-- Header -->
+    <header class="site-header sim-header">
+      <div class="header-badge">SIMULATION · RUNNING</div>
+      <h1 class="site-title">
+        <span id="sim-algo-label" class="title-ai">BFS</span>
+        <span class="title-sub-sm">Algorithm Visualization</span>
+      </h1>
+      <div class="header-controls">
+        <button class="btn btn-secondary btn-sm" id="btn-pause">⏸ PAUSE</button>
+        <button class="btn btn-secondary btn-sm" id="btn-step">⏭ STEP</button>
+        <button class="btn btn-secondary btn-sm" id="btn-restart">↺ RESTART</button>
+      </div>
+    </header>
+
+    <main class="sim-layout">
+
+      <!-- ── LEFT: Info panels ── -->
+      <aside class="sim-sidebar">
+
+        <!-- Algorithm info -->
+        <div class="panel glass sim-panel">
+          <div class="panel-header">
+            <span class="panel-icon">◈</span>
+            <h2>ALGORITHM INFO</h2>
+          </div>
+          <table class="info-table">
+            <tr><td>Algorithm</td><td id="info-algo">—</td></tr>
+            <tr><td>Start Node</td><td id="info-start">—</td></tr>
+            <tr><td>Nodes Explored</td><td id="info-explored">0</td></tr>
+            <tr><td>Current Node</td><td id="info-current">—</td></tr>
+            <tr><td>Queue / Stack</td><td id="info-frontier">—</td></tr>
+            <tr><td>Status</td><td id="info-status"><span class="status-running">RUNNING</span></td></tr>
+          </table>
+        </div>
+
+        <!-- Result panel -->
+        <div class="panel glass sim-panel" id="result-panel" style="display:none">
+          <div class="panel-header">
+            <span class="panel-icon">◉</span>
+            <h2>RESULT</h2>
+          </div>
+          <div id="result-path-display" class="result-path"></div>
+          <div id="result-cost-display" class="result-cost"></div>
+          <div id="result-detail" class="result-detail"></div>
+        </div>
+
+        <!-- Pseudocode live panel -->
+        <div class="panel glass sim-panel">
+          <div class="panel-header">
+            <span class="panel-icon">◈</span>
+            <h2>PSEUDOCODE</h2>
+          </div>
+          <div class="pseudocode-panel">
+            <pre id="sim-pseudocode"></pre>
+          </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="panel glass sim-panel">
+          <div class="panel-header">
+            <span class="panel-icon">◈</span>
+            <h2>LEGEND</h2>
+          </div>
+          <div class="legend">
+            <div class="legend-item"><span class="legend-dot dot-unvisited"></span>Unvisited</div>
+            <div class="legend-item"><span class="legend-dot dot-frontier"></span>In Queue / Stack</div>
+            <div class="legend-item"><span class="legend-dot dot-current"></span>Current Node</div>
+            <div class="legend-item"><span class="legend-dot dot-visited"></span>Visited</div>
+            <div class="legend-item"><span class="legend-dot dot-path"></span>Final Path</div>
+          </div>
+        </div>
+
+        <!-- Nav buttons -->
+        <div class="sim-nav-btns">
+          <button class="btn btn-secondary" id="btn-change-algo">⇄ CHANGE ALGORITHM</button>
+          <button class="btn btn-secondary" id="btn-return-input">← BACK TO INPUT</button>
+        </div>
+
+      </aside>
+
+      <!-- ── RIGHT: Main canvas ── -->
+      <section class="sim-canvas-section panel glass">
+        <div class="panel-header">
+          <span class="panel-icon">◉</span>
+          <h2>GRAPH VISUALIZATION</h2>
+          <div class="speed-mini">
+            <span class="form-label" style="font-size:10px">SPEED</span>
+            <input type="range" id="sim-speed-slider" class="neon-slider mini" min="1" max="5" value="3" />
+          </div>
+        </div>
+        <div class="sim-canvas-wrapper">
+          <canvas id="sim-canvas"></canvas>
+        </div>
+
+        <!-- Step log -->
+        <div class="step-log-wrapper">
+          <div class="panel-header" style="margin-bottom:4px">
+            <span class="panel-icon" style="font-size:10px">◈</span>
+            <h2 style="font-size:10px">STEP LOG</h2>
+          </div>
+          <div id="step-log" class="step-log"></div>
+        </div>
+      </section>
+
+    </main>
+  </div><!-- /page-sim -->
+
+  <script src="script.js"></script>
+</body>
+</html>
